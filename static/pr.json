@@ -1,5 +1,10 @@
     [ 
-        
+       {
+           "title": "Adds Readme Directions for Ubuntu 15.04",
+           "repository": "Genoil/cpp-ethereum",
+           "url": "https://github.com/Genoil/cpp-ethereum/pull/140",
+           "language": "Markdown"
+       },
           {
            "title": "Yarn Support",
            "repository": "diracdeltas/signal-muon",
