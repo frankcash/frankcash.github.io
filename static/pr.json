@@ -1,4 +1,10 @@
-    [ 
+    [
+      {
+           "title": "Fixes #806 Prompt accepts 'ok'",
+           "repository": "decred/dcrwallet",
+           "url": "https://github.com/decred/dcrwallet/pull/807",
+           "language": "golang"
+       },
         {
            "title": "Return nil for readability",
            "repository": "bitmark-inc/bitmarkd",
