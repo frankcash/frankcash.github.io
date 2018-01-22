@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/print.css" media="print">
+
+    <title>Writing to S3 ion Golang</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Writing to S3 in Golang</h1>
+      </div>
+    </header>
+    <div class="container">
+      <h2>Why use AWS S3?</h2>
+      <p><a href="https://aws.amazon.com/s3/">S3</a> is a simple object storage tool offered by Amazon Web Services.</p>
+      <p>S3 has a lot of good uses cases: modular name spacing, multi-zone access, ease of accessing files, etc.</p>
+    </div>
+
+    <div class="container">
+
+      <h2 >Getting the Dependencies</h2>
+      <p>There is currently an amazing <a href="https://github.com/aws/aws-sdk-go">SDK</a> for Golang maintained by AWS.</p>
+      <p>To install it: <code>go get -u github.com/aws/aws-sdk-go</code></p>
+
+      <h2>The Code To Upload</h2>
+      <p>The code to be able to upload is pretty simple and thus will be annotated by comments.</p>
+      <pre><code>
+        package helpers
+
+        import (
+            "bytes"
+            "fmt"
+            "log"
+            "net/http"
+            "os"
+        
+            "github.com/aws/aws-sdk-go/aws"
+            "github.com/aws/aws-sdk-go/aws/session"
+            "github.com/aws/aws-sdk-go/service/s3"
+        )
+
+        /**
+        * Returns a new AWS session
+         */
+        func NewSession(S3_Region string) *session.Session {
+            sess, err := session.NewSession(&aws.Config{Region: aws.String(S3_Region)})
+            if err != nil {
+                log.Fatal(err)
+            }
+            return sess
+        }
+
+        /**
+        * AddFileToS3 takes in a session, fileDir, S3_Bucket, and S3_Dir_Path
+        * In this case fileDir is the local file to read in and upload to S3; in this case we expect it to be local to the code
+        * S3 Dir Path is the directory within the S3 Bucket to write to
+         */
+        func AddFileToS3(s *session.Session, fileDir string, S3_Bucket string, S3_Dir_Path string) error {
+
+            // Open the file for use
+            file, err := os.Open(fileDir)
+            if err != nil {
+                return err
+            }
+        
+            defer file.Close()
+        
+            // Get file size and read the file content into a buffer
+            fileInfo, _ := file.Stat()
+            var size int64 = fileInfo.Size()
+            buffer := make([]byte, size)
+            file.Read(buffer)
+            key := fmt.Sprintf("%s%s", S3_Dir_Path, fileDir)
+        
+            _, err = s3.New(s).PutObject(&s3.PutObjectInput{
+                Bucket:               aws.String(S3_Bucket),
+                Key:                  aws.String(key),
+                ACL:                  aws.String("private"),
+                Body:                 bytes.NewReader(buffer),
+                ContentLength:        aws.Int64(size),
+                ContentType:          aws.String(http.DetectContentType(buffer)),
+                ContentDisposition:   aws.String("attachment"),
+                ServerSideEncryption: aws.String("AES256"),
+            })
+            return err
+        }
+      </code></pre>
+
+      <p>In the above code it is expected that the file is local to the function that is calling it due to the nature of how I deploy Docker Containers.</p>
+      <p>My containers constantly scale up and down with no persistence due to the nature of their tasks.</p>
+      <p>If you wanted to work with non-local files simply change <code>AddFileToS3</code> to take another parameter along the lines of <code>S3_output string</code>.</p>
+      <p>And change <code>key := fmt.Sprintf("%s%s", S3_Dir_Path, fileDir)</code> to be <code>key := fmt.Sprintf("%s%s", S3_Dir_Path, S3_output)</code></p>
+
+      <h2>Utilizing this Code</h2>
+      <p>Say you have a program that generates a CSV or TSV that you want stored in S3 this code simply be called when needed due to the fact that it is exported.</p>
+      <pre><code>
+            s := helpers.NewSession("us-east-2")
+            t := time.Now().Local()
+            time := t.Format("2006/01/02")
+            fmt.Println(t, "=>", time)
+            dir := fmt.Sprintf("%s/%s", "nodes", time)
+            err := helpers.AddFileToS3(s, "raw.csv", "crypto-tools", dir)
+            if err != nil {
+                log.Fatal(err)
+            }
+      </code></pre>
+    </div>
+  </body>
+  <div class="container">
+    <footer>
+      If you found this guide helpful please consider donating Ethereum to <code>0xff6492f6d2a2d1194061751c6b350e4fa5ff34f2</code>.
+    </footer>
+  </div>
+
+</html>
