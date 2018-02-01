@@ -55,7 +55,7 @@
         }
         
         /** NewSession
-        * Returns a new AWS session
+        * Returns a new AWS session.  Uses your creds in ~/.aws
          */
         func NewSession(S3Region string) (*session.Session, error) {
           sess, err := session.NewSession(&aws.Config{Region: aws.String(S3Region)})
@@ -92,8 +92,6 @@
         }
       </code></pre>
 
-      <p>In the above code it is expected that the file is local to the function that is calling it due to the nature of how I deploy Docker Containers.</p>
-      <p>My containers constantly scale up and down with no persistence due to the nature of their tasks.</p>
 
       <h2>Utilizing this Code</h2>
       <p>Say you have a program that generates a CSV or TSV that you want stored in S3 this code simply be called when needed due to the fact that it is exported.</p>
@@ -114,6 +112,9 @@
         }
         f.Close()
       </code></pre>
+      <p>In the first set of code we read in the file using the <code>GetFile</code> function.</p>
+      <p>After this we generate a new AWS session so we will be able to complete an S3 Put.</p>
+      <p>In the final step we call our <code>AddFileToS3</code> function.  This function uses the passed in file object to generate a S3 <code>PutObjectInput</code></p>
     </div>
   </body>
   <div class="container">
