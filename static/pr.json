@@ -1,5 +1,11 @@
     [
-      {
+        {
+            "title": "Introduces reddit example ",
+            "repository": "gocolly/colly",
+            "url": "https://github.com/gocolly/colly/pull/102",
+            "language": "golang"
+        },
+        {
            "title": "Fixes #806 Prompt accepts 'ok'",
            "repository": "decred/dcrwallet",
            "url": "https://github.com/decred/dcrwallet/pull/807",
