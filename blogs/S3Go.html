@@ -24,17 +24,22 @@
       <p><a href="https://aws.amazon.com/s3/">S3</a> is a simple object storage tool offered by Amazon Web Services.</p>
       <p>Object storage allows people to store all types of files without defining a schema such as miscellaneous CSV files.</p>
       <p>S3 is an example of object storage done well: modular name spacing, multi-zone access, ease of accessing files, etc.</p>
+      // @COMMENT: why is it a great solution for this
       <p>S3 object storage is a great solution for teams working on using data generated from programs in a collaborative measure.</p>
+      // @COMMENT: define ETL
       <p>Object storage is also a solution for staging data in an ETL pipeline.</p>
     </div>
 
     <div class="container">
 
       <h2 >Getting the Dependencies</h2>
+      // @COMMENT: i would omit "amazing" and just say that a library exists
       <p>There is currently an amazing <a href="https://github.com/aws/aws-sdk-go">SDK</a> for Golang maintained by AWS.</p>
+      // @COMMENT: note that you have to run this while in your gopath, and accompanying command
       <p>To install it: <code>go get -u github.com/aws/aws-sdk-go</code></p>
 
       <h2>The Code To Upload</h2>
+      // @COMMENT: remove "pretty simple" it is subjective and a person reading this probably wouldnt think it is simple
       <p>The code to be able to upload is pretty simple and thus will be annotated by comments.</p>
       <pre><code>
         package helpers
@@ -49,6 +54,7 @@
           "github.com/aws/aws-sdk-go/service/s3"
         )
 
+// @COMMENT: add a doc comment // GetFile ...
         func GetFile(fileDir string) (*os.File, error) {
           file, err := os.Open(fileDir)
           if err != nil {
@@ -57,6 +63,7 @@
           return file, nil
         }
         
+// @COMMENT: this is not convential Go. use // NewSession ...; there is no block comment in go
         /** NewSession
         * Returns a new AWS session.  Uses your creds in ~/.aws
          */
@@ -68,6 +75,8 @@
           return sess, nil
         }
         
+// @COMMENT: nice comment, just use //.
+// @COMMENT: why do you export S3Bucket and S3DirPath, i dont think these vars need to be exported (titlecase) for access in other packages.
         /** AddFileToS3 takes in a session, fileDir, S3_Bucket, and S3_Dir_Path
         * In this case fileDir is the local file to read in and upload to S3; in this case we expect it to be local to the code
         * S3 Dir Path is the directory within the S3 Bucket to write to
@@ -97,27 +106,35 @@
 
 
       <h2>Utilizing this Code</h2>
+// @COMMENT: this sentence doesnt make sense. break this up into a couple sentences.
+// @COMMENT: define everything, i dont know what a TSV is.
       <p>Say you have a program that generates a CSV or TSV that you want stored in S3 this code simply be called when needed due to the fact that it is exported.</p>
       <pre><code>
+// @COMMENT: maybe talk about where total.csv has to be located or dont use a real file name, "path/to/file.csv"
         f, err := GetFile("total.csv")
         if err != nil {
           fmt.Println(err)
         }
       
+// @COMMENT: what is "us-west-2"? why did you make this decision
         s, err := NewSession("us-west-2")
         if err != nil {
           fmt.Println(err)
         }
       
+// @COMMENT: what is "my_bucket"? what is "test/"?
+// @COMMENT: did you have to set something up in S3 to make this work?
+// @COMMENT: when i look at a tutorial, i dont want them to assume anything, tell me everything i need to do, setup s3, etc.
         err = AddFileToS3(s, f, "my_bucket", "test/")
         if err != nil {
           fmt.Println(err)
         }
+// @COMMENT: this is not idiomatic Go, usually, you would use a defer func right after opening
         f.Close()
       </code></pre>
       <p>In the first set of code we read in the file using the <code>GetFile</code> function.</p>
       <p>After this we generate a new AWS session so we will be able to complete an S3 Put.</p>
-      <p>In the final step we call our <code>AddFileToS3</code> function.  This function uses the passed in file object to generate a S3 <code>PutObjectInput</code></p>
+      <p>In the final step, we call our <code>AddFileToS3</code> function.  This function uses the passed in file object to generate a S3 <code>PutObjectInput</code></p>
     </div>
   </body>
   <div class="container">
