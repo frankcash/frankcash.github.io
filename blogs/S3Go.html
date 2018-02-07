@@ -96,8 +96,8 @@
 
 
       <h2>Utilizing this Code</h2>
-// @COMMENT: this sentence doesnt make sense. break this up into a couple sentences.
-      <p>Say you have a program that generates a CSV or TSV that you want stored in S3 this code simply be called when needed due to the fact that it is exported.</p>
+      <p>Say you have a program that generates a comma-seperated value (CSV) or tab-seperated value (TSV) that you want stored in S3.</p>
+      <p>You would use the following snippet to read in the CSV or TSV and then upload it to S3.</p>
       <pre><code>
         f, err := GetFile("/path/to/file.csv")
         defer f.Close()
@@ -111,9 +111,6 @@
           fmt.Println(err)
         }
       
-// @COMMENT: what is "my_bucket"? what is "test/"?
-// @COMMENT: did you have to set something up in S3 to make this work?
-// @COMMENT: when i look at a tutorial, i dont want them to assume anything, tell me everything i need to do, setup s3, etc.
         err = AddFileToS3(s, f, "my_bucket", "test/")
         if err != nil {
           fmt.Println(err)
