@@ -1,6 +1,6 @@
     [
         {
-            "title": "Introduces reddit example ",
+            "title": "Introduces reddit example",
             "repository": "gocolly/colly",
             "url": "https://github.com/gocolly/colly/pull/102",
             "language": "golang"
