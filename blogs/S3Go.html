@@ -24,23 +24,18 @@
       <p><a href="https://aws.amazon.com/s3/">S3</a> is a simple object storage tool offered by Amazon Web Services.</p>
       <p>Object storage allows people to store all types of files without defining a schema such as miscellaneous CSV files.</p>
       <p>S3 is an example of object storage done well: modular name spacing, multi-zone access, ease of accessing files, etc.</p>
-      // @COMMENT: why is it a great solution for this
-      <p>S3 object storage is a great solution for teams working on using data generated from programs in a collaborative measure.</p>
-      // @COMMENT: define ETL
-      <p>Object storage is also a solution for staging data in an ETL pipeline.</p>
+      <p>S3 object storage is a great solution for teams working on using data generated from programs in a collaborative.</p>
+      <p>This is due to the fact that a program can write a file to S3 and then a team member can access the file when needed.</p>
+      <p>Object storage is also a solution for staging data in an Extract Translate Load (ETL) pipeline due to the ability to create idomatic file paths and naming conventions.</p>
     </div>
 
     <div class="container">
 
       <h2 >Getting the Dependencies</h2>
-      // @COMMENT: i would omit "amazing" and just say that a library exists
-      <p>There is currently an amazing <a href="https://github.com/aws/aws-sdk-go">SDK</a> for Golang maintained by AWS.</p>
-      // @COMMENT: note that you have to run this while in your gopath, and accompanying command
-      <p>To install it: <code>go get -u github.com/aws/aws-sdk-go</code></p>
+      <p>There is currently a <a href="https://github.com/aws/aws-sdk-go">SDK</a> for Golang maintained by AWS.</p>
+      <p>To install it the SDK run: <code>go get -u github.com/aws/aws-sdk-go</code> while in your gopath.</p>
 
       <h2>The Code To Upload</h2>
-      // @COMMENT: remove "pretty simple" it is subjective and a person reading this probably wouldnt think it is simple
-      <p>The code to be able to upload is pretty simple and thus will be annotated by comments.</p>
       <pre><code>
         package helpers
         import (
@@ -54,7 +49,7 @@
           "github.com/aws/aws-sdk-go/service/s3"
         )
 
-// @COMMENT: add a doc comment // GetFile ...
+        // GetFile will read in a file and return a file typ
         func GetFile(fileDir string) (*os.File, error) {
           file, err := os.Open(fileDir)
           if err != nil {
@@ -63,10 +58,8 @@
           return file, nil
         }
         
-// @COMMENT: this is not convential Go. use // NewSession ...; there is no block comment in go
-        /** NewSession
-        * Returns a new AWS session.  Uses your creds in ~/.aws
-         */
+        // NewSession
+        // Returns a new AWS session.  Uses your creds in ~/.aws
         func NewSession(S3Region string) (*session.Session, error) {
           sess, err := session.NewSession(&aws.Config{Region: aws.String(S3Region)})
           if err != nil {
@@ -75,23 +68,20 @@
           return sess, nil
         }
         
-// @COMMENT: nice comment, just use //.
-// @COMMENT: why do you export S3Bucket and S3DirPath, i dont think these vars need to be exported (titlecase) for access in other packages.
-        /** AddFileToS3 takes in a session, fileDir, S3_Bucket, and S3_Dir_Path
-        * In this case fileDir is the local file to read in and upload to S3; in this case we expect it to be local to the code
-        * S3 Dir Path is the directory within the S3 Bucket to write to
-         */
-        func AddFileToS3(s *session.Session, file *os.File, S3Bucket string, S3DirPath string) error {
-        
+        // AddFileToS3 takes in a session, fileDir, s3_Bucket, and s3_Dir_Path
+        // In this case fileDir is the local file to read in and upload to S3; in this case we expect it to be local to the code
+        // S3 Dir Path is the directory within the S3 Bucket to write to
+        func AddFileToS3(s *session.Session, file *os.File, s3Bucket string, s3DirPath string) error {
+
           // Get file size and read the file content into a buffer
           fileInfo, _ := file.Stat()
           size := fileInfo.Size()
           buffer := make([]byte, size)
           file.Read(buffer)
-          key := fmt.Sprintf("%s%s", S3DirPath, file.Name())
+          key := fmt.Sprintf("%s%s", s3DirPath, file.Name())
         
           _, err := s3.New(s).PutObject(&s3.PutObjectInput{
-            Bucket:               aws.String(S3Bucket),
+            Bucket:               aws.String(s3Bucket),
             Key:                  aws.String(key),
             ACL:                  aws.String("private"),
             Body:                 bytes.NewReader(buffer),
@@ -107,17 +97,16 @@
 
       <h2>Utilizing this Code</h2>
 // @COMMENT: this sentence doesnt make sense. break this up into a couple sentences.
-// @COMMENT: define everything, i dont know what a TSV is.
       <p>Say you have a program that generates a CSV or TSV that you want stored in S3 this code simply be called when needed due to the fact that it is exported.</p>
       <pre><code>
-// @COMMENT: maybe talk about where total.csv has to be located or dont use a real file name, "path/to/file.csv"
-        f, err := GetFile("total.csv")
+        f, err := GetFile("/path/to/file.csv")
+        defer f.Close()
+
         if err != nil {
           fmt.Println(err)
         }
       
-// @COMMENT: what is "us-west-2"? why did you make this decision
-        s, err := NewSession("us-west-2")
+        s, err := NewSession("s3-bucket-region")
         if err != nil {
           fmt.Println(err)
         }
@@ -129,12 +118,11 @@
         if err != nil {
           fmt.Println(err)
         }
-// @COMMENT: this is not idiomatic Go, usually, you would use a defer func right after opening
-        f.Close()
       </code></pre>
       <p>In the first set of code we read in the file using the <code>GetFile</code> function.</p>
-      <p>After this we generate a new AWS session so we will be able to complete an S3 Put.</p>
-      <p>In the final step, we call our <code>AddFileToS3</code> function.  This function uses the passed in file object to generate a S3 <code>PutObjectInput</code></p>
+      <p>After this we generate a new AWS session by passing in the region the S3 bucket exists in.</p>
+      <p>In the final step, we call our <code>AddFileToS3</code> function.  This function uses the passed in file object <code>f</code> to generate a S3 <code>PutObjectInput</code>.</p>
+      <p><code>AddFileToS3</code> also takes in a string <code>s3_Bucket</code> which is the appropriate S3 Bucket to upload to and <code>s3_Dir_Path</code> which is the path to store the file in.  Passing in <code>""</code> would set the directory to be the root of the bucket.</p>
     </div>
   </body>
   <div class="container">
