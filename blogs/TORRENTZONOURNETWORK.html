@@ -48,49 +48,54 @@
             </p>
             
             <h4 id="whatisthewindowsuseraccountnameforthecomputerat1000201">What is the Windows user account name for the computer at 10.0.0.201?</h4>
-            
-            <p>
-            potential idea: <pre><code>nbns</code></pre>
-            potential idea: <pre><code>smb</code></pre>
-            potential idea: <pre><code>kerberos contains blanco</code></pre>
-            Solution: <pre><code>elmber blanco</code></pre>
-            Found with filter: <pre><code>kerberos.CNameString</code></pre>
-            </p>
-            
+            <div>
+                <p>
+                potential filter idea: <pre><code>nbns</code></pre>
+                potential filter idea: <pre><code>smb</code></pre>
+                potential filter idea: <pre><code>kerberos contains blanco</code></pre>
+                Solution: <pre><code>elmber blanco</code></pre>
+                Found with filter: <pre><code>kerberos.CNameString</code></pre>
+                </p>
+            </div>
             <h4 id="isthemicrosoftwindowsversionxp78or10ofthecomputerat1000201">is the Microsoft Windows version (XP, 7, 8, or 10) of the computer at 10.0.0.201?</h4>
-            
-            <p>
-            Solution: Widows 10
-            <pre><code>Source: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134</code>
-            Find with filter: `http &amp;&amp; ip.src==10.0.0.201</code></pre>
-            </p>
+            <div>
+                <p>
+                Solution: Widows 10
+                <pre><code>Source: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134</code>
+                Find with filter: `http &amp;&amp; ip.src==10.0.0.201</code></pre>
+                </p>
+            </div>
 
             
             <h4 id="torrentfiledidtheuserat1000201download">torrent file did the user at 10.0.0.201 download?</h4>
             
-            <p>
-            potential idea: <pre><code>http &amp;&amp; ip.dst==10.0.0.201</code></pre>
-            Solution: <pre><code>Betty_Boop_Rhythm_on_the_Reservation.avi.torrent</code></pre>
-            Find with filter: <pre><code>http contains .torrent</code></pre>
-            </p>
+            <div>
+                <p>
+                potential filter idea: <pre><code>http &amp;&amp; ip.dst==10.0.0.201</code></pre>
+                Solution: <pre><code>Betty_Boop_Rhythm_on_the_Reservation.avi.torrent</code></pre>
+                Find with filter: <pre><code>http contains .torrent</code></pre>
+                </p>
+            </div>
             
             <h4 id="isthenameofthetorrentclientusedon1000201">is the name of the torrent client used on 10.0.0.201?</h4>
             
-            <p>
-            potential idea: <pre><code>bittorrent &amp;&amp; ip.src==10.0.0.201</code></pre>
-            potential idea: <pre><code>bittorrent.info_hash</code></pre>
-            solution: deluge-torrent (https://deluge-torrent.org/)
-            Find with filter: <pre><code>(http contains scrape or http contains announce) and http.request</code></pre>
-            This filter allows us to make use of some of the internals of the bittorrent protocol &lt;http://www.bittorrent.org/beps/bep_0048.html&gt;.  A client can only create a scrape request if there is an announce string in the path section.
-            </p>
-            
+            <div>
+                <p>
+                potential idea: <pre><code>bittorrent &amp;&amp; ip.src==10.0.0.201</code></pre>
+                potential idea: <pre><code>bittorrent.info_hash</code></pre>
+                solution: deluge-torrent (https://deluge-torrent.org/)
+                Find with filter: <pre><code>(http contains scrape or http contains announce) and http.request</code></pre>
+                This filter allows us to make use of some of the internals of the bittorrent protocol &lt;http://www.bittorrent.org/beps/bep_0048.html&gt;.  A client can only create a scrape request if there is an announce string in the path section.
+                </p>
+            </div>
             <h4 id="fileisbeingseededsharedbythetorrentclienton1000201">file is being seeded (shared) by the torrent client on 10.0.0.201?</h4>
-            
-            <p>
-            Solution: <pre><code>ubuntu-18.04-desktop-amd64</code></pre>
-            Sha1 hash:<pre><code>e4be9e4db876e3e3179778b03e906297be5c8dbe</code></pre>
-            Find with filter <pre><code>http.request.uri contains announce or http.request.uri contains scrape</code></pre>
-            </p>
+            <div>
+                <p>
+                Solution: <pre><code>ubuntu-18.04-desktop-amd64</code></pre>
+                Sha1 hash:<pre><code>e4be9e4db876e3e3179778b03e906297be5c8dbe</code></pre>
+                Find with filter <pre><code>http.request.uri contains announce or http.request.uri contains scrape</code></pre>
+                </p>
+            </div>
         </section>
     </div>
     </body>
