@@ -19,74 +19,78 @@
         <h1>Solution to: Analysis "OH NOES! TORRENTZ ON OUR NETWORK!"</h1>
       </div>
     </header>
-    <h2 id="linkfordata">Link for Data</h2>
+    <div class="container">
+        <section id="main_content">
+            <h2 id="linkfordata">Link for Data</h2>
 
-    <p>https://www.malware-traffic-analysis.net/2018/07/15/index.html</p>
-    
-    <h2 id="scenario">Scenario</h2>
-    
-    <p>You have received alerts on bittorrent traffic from 10.0.0.201 on your organization's network.  Torrent traffic is often associated with file sharing of copyright-protected content; however, many cases of torrent traffic are perfectly legal (like this traffic analysis exercise).  Characteristics of your network are:</p>
-    
-    <p>LAN segment:  10.0.0.0/24 (10.0.0.0 through 10.0.0.255)
-    Broadcast address:  10.0.0.255
-    Domain controller:  10.0.0.2 (DogOfTheYear-DC)
-    Domain:  dogoftheyear.net</p>
-    
-    <h2 id="questions">Questions</h2>
-    
-    <h4 id="whatisthemacaddressofthecomputerat1000201">What is the MAC address of the computer at 10.0.0.201?</h4>
-    
-    <pre><code>Source: Msi_18:66:c8 (`00:16:17:18:66:c8`)
-    </code></pre>
-    
-    <h4 id="whatisthehostnameofthecomputerat1000201">What is the host name of the computer at 10.0.0.201?</h4>
-    
-    <pre><code>Solution: The host name is `BLANCO-DESKTOP`
-    Found with filter: `ip.addr==10.0.0.201 &amp;&amp; nbns`.
-    </code></pre>
-    
-    <h4 id="whatisthewindowsuseraccountnameforthecomputerat1000201">What is the Windows user account name for the computer at 10.0.0.201?</h4>
-    
-    <pre><code>potential idea: `nbns`
-    potential idea: `smb`
-    potential idea: `kerberos contains blanco`
-    Solution: `elmber blanco`
-    Found with filter: `kerberos.CNameString`
-    </code></pre>
-    
-    <h4 id="isthemicrosoftwindowsversionxp78or10ofthecomputerat1000201">is the Microsoft Windows version (XP, 7, 8, or 10) of the computer at 10.0.0.201?</h4>
-    
-    <pre><code>Solution: Widows 10
-    `Source: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134`
-    Find with filter: `http &amp;&amp; ip.src==10.0.0.201`.
-    </code></pre>
-    
-    <h4 id="timeinutcdidthetorrentactivityfrom1000201start">time in UTC did the torrent activity from 10.0.0.201 start?</h4>
-    
-    <pre><code>My time processing wasn't working.
-    </code></pre>
-    
-    <h4 id="torrentfiledidtheuserat1000201download">torrent file did the user at 10.0.0.201 download?</h4>
-    
-    <pre><code>potential idea: `http &amp;&amp; ip.dst==10.0.0.201`
-    Solution: `Betty_Boop_Rhythm_on_the_Reservation.avi.torrent`
-    Find with filter: `http contains .torrent`
-    </code></pre>
-    
-    <h4 id="isthenameofthetorrentclientusedon1000201">is the name of the torrent client used on 10.0.0.201?</h4>
-    
-    <pre><code>potential idea: `bittorrent &amp;&amp; ip.src==10.0.0.201`
-    potential idea: `bittorrent.info_hash`
-    solution: deluge-torrent (https://deluge-torrent.org/)
-    Find with filter: `(http contains scrape or http contains announce) and http.request`
-    This filter allows us to make use of some of the internals of the bittorrent protocol &lt;http://www.bittorrent.org/beps/bep_0048.html&gt;.  A client can only create a scrape request if there is an announce string in the path section.
-    </code></pre>
-    
-    <h4 id="fileisbeingseededsharedbythetorrentclienton1000201">file is being seeded (shared) by the torrent client on 10.0.0.201?</h4>
-    
-    <pre><code>Solution: `ubuntu-18.04-desktop-amd64`
-    Sha1 hash:`e4be9e4db876e3e3179778b03e906297be5c8dbe`
-    Find with filter `http.request.uri contains announce or http.request.uri contains scrape`
-    </code></pre>
+            <p>https://www.malware-traffic-analysis.net/2018/07/15/index.html</p>
+            
+            <h2 id="scenario">Scenario</h2>
+            
+            <p>You have received alerts on bittorrent traffic from 10.0.0.201 on your organization's network.  Torrent traffic is often associated with file sharing of copyright-protected content; however, many cases of torrent traffic are perfectly legal (like this traffic analysis exercise).  Characteristics of your network are:</p>
+            
+            <p>LAN segment:  10.0.0.0/24 (10.0.0.0 through 10.0.0.255)
+            Broadcast address:  10.0.0.255
+            Domain controller:  10.0.0.2 (DogOfTheYear-DC)
+            Domain:  dogoftheyear.net</p>
+            
+            <h2 id="questions">Questions</h2>
+            
+            <h4 id="whatisthemacaddressofthecomputerat1000201">What is the MAC address of the computer at 10.0.0.201?</h4>
+            
+            <pre><code>Source: Msi_18:66:c8 (`00:16:17:18:66:c8`)
+            </code></pre>
+            
+            <h4 id="whatisthehostnameofthecomputerat1000201">What is the host name of the computer at 10.0.0.201?</h4>
+            
+            <pre><code>Solution: The host name is `BLANCO-DESKTOP`
+            Found with filter: `ip.addr==10.0.0.201 &amp;&amp; nbns`.
+            </code></pre>
+            
+            <h4 id="whatisthewindowsuseraccountnameforthecomputerat1000201">What is the Windows user account name for the computer at 10.0.0.201?</h4>
+            
+            <pre><code>potential idea: `nbns`
+            potential idea: `smb`
+            potential idea: `kerberos contains blanco`
+            Solution: `elmber blanco`
+            Found with filter: `kerberos.CNameString`
+            </code></pre>
+            
+            <h4 id="isthemicrosoftwindowsversionxp78or10ofthecomputerat1000201">is the Microsoft Windows version (XP, 7, 8, or 10) of the computer at 10.0.0.201?</h4>
+            
+            <pre><code>Solution: Widows 10
+            `Source: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134`
+            Find with filter: `http &amp;&amp; ip.src==10.0.0.201`.
+            </code></pre>
+            
+            <h4 id="timeinutcdidthetorrentactivityfrom1000201start">time in UTC did the torrent activity from 10.0.0.201 start?</h4>
+            
+            <pre><code>My time processing wasn't working.
+            </code></pre>
+            
+            <h4 id="torrentfiledidtheuserat1000201download">torrent file did the user at 10.0.0.201 download?</h4>
+            
+            <pre><code>potential idea: `http &amp;&amp; ip.dst==10.0.0.201`
+            Solution: `Betty_Boop_Rhythm_on_the_Reservation.avi.torrent`
+            Find with filter: `http contains .torrent`
+            </code></pre>
+            
+            <h4 id="isthenameofthetorrentclientusedon1000201">is the name of the torrent client used on 10.0.0.201?</h4>
+            
+            <pre><code>potential idea: `bittorrent &amp;&amp; ip.src==10.0.0.201`
+            potential idea: `bittorrent.info_hash`
+            solution: deluge-torrent (https://deluge-torrent.org/)
+            Find with filter: `(http contains scrape or http contains announce) and http.request`
+            This filter allows us to make use of some of the internals of the bittorrent protocol &lt;http://www.bittorrent.org/beps/bep_0048.html&gt;.  A client can only create a scrape request if there is an announce string in the path section.
+            </code></pre>
+            
+            <h4 id="fileisbeingseededsharedbythetorrentclienton1000201">file is being seeded (shared) by the torrent client on 10.0.0.201?</h4>
+            
+            <pre><code>Solution: `ubuntu-18.04-desktop-amd64`
+            Sha1 hash:`e4be9e4db876e3e3179778b03e906297be5c8dbe`
+            Find with filter `http.request.uri contains announce or http.request.uri contains scrape`
+            </code></pre>
+        </section>
+    </div>
     </body>
 </html>
