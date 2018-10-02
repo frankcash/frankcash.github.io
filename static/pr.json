@@ -1,5 +1,11 @@
     [
         {
+            "title": "Write DB to Google Cloud Storage",
+            "repository": "frankcash/HackerQueue",
+            "url": "https://github.com/frankcash/HackerQueue/pull/59",
+            "language": "node.js"
+        },
+        {
             "title": "Introduces reddit example",
             "repository": "gocolly/colly",
             "url": "https://github.com/gocolly/colly/pull/102",
