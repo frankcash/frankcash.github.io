@@ -3,7 +3,7 @@
             "title": "[AIRFLOW-XXXX] Include code tags for sample file names",
             "repository": "apache/airflow",
             "url": "https://github.com/apache/airflow/pull/6360",
-            "language": "markdown"
+            "language": "Markdown"
         },
         {
             "title": "Write DB to Google Cloud Storage",
