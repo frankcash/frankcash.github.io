@@ -1,5 +1,11 @@
     [
         {
+            "title": "useCrumbs -> use_crumbs",
+            "repository": "pycontribs/jenkinsapi",
+            "url": "https://github.com/pycontribs/jenkinsapi/pull/756",
+            "language": "Python"
+        },
+        {
             "title": "[AIRFLOW-XXXX] Include code tags for sample file names",
             "repository": "apache/airflow",
             "url": "https://github.com/apache/airflow/pull/6360",
