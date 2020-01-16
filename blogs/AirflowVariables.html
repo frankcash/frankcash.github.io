@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Utilizing Airflow Variables for developer best practices.">
+    <meta name="title" content="Utilizing Airflow Variables">
+    <meta name="keywords" content="Airflow, Apache, Data Science, Python, python, data, data engineering, engineering, AWS, s3, amazon">
+    <meta name="google" content="notranslate">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/print.css" media="print">
+
+    <title>Utilizing Airflow Variables</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Utilizing Airflow Variables</h1>
+      </div>
+    </header>
+
+
+    <div class="container">
+
+      <h2 >Sample DAG Code</h2>
+
+      <pre><code>
+        # dag.py
+        import urllib2
+        from datetime import timedelta
+        import airflow
+        from airflow.models import DAG
+        from airflow.models import Variable
+        from airflow.operators.python_operator import PythonOperator
+
+        if Variable.get('environment') == 'dev':
+            cron = "*/15 * * * *"
+        else:
+            cron = "*/30 * * * *"
+
+        dag = DAG(dag_id='check_status_v0_0_6', default_args=args, schedule_interval = cron, max_active_runs=1, dagrun_timeout=timedelta(minutes=35))
+
+        def check_status(**kwargs):
+            print()
+            req = urllib2.urlopen(url=kwargs['url'])
+            print(req.read())
+            if req.getcode() in (200, 301):
+                return True
+            return False
+
+        github = PythonOperator(task_id='check_github', python_callable=check_status, provide_context=True, dag=dag, op_kwargs={'url':'https://github.com/status'},)
+        npr = PythonOperator(task_id='check_npr', python_callable=check_status, provide_context=True, dag=dag, op_kwargs={'url':'https://www.npr.org/status'},)
+                    
+            
+        github >> npr
+
+      </code></pre>
+
+
+  </body>
+
+</html>
