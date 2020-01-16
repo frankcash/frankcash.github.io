@@ -39,7 +39,11 @@
         else:
             cron = "*/30 * * * *"
 
-        dag = DAG(dag_id='check_status_v0_0_6', default_args=args, schedule_interval = cron, max_active_runs=1, dagrun_timeout=timedelta(minutes=35))
+        dag = DAG(dag_id='check_status_v0_0_6',
+            default_args=args,
+            schedule_interval=cron,
+            max_active_runs=1,
+            dagrun_timeout=timedelta(minutes=35))
 
         def check_status(**kwargs):
             print()
@@ -49,8 +53,17 @@
                 return True
             return False
 
-        github = PythonOperator(task_id='check_github', python_callable=check_status, provide_context=True, dag=dag, op_kwargs={'url':'https://github.com/status'},)
-        npr = PythonOperator(task_id='check_npr', python_callable=check_status, provide_context=True, dag=dag, op_kwargs={'url':'https://www.npr.org/status'},)
+        github = PythonOperator(task_id='check_github', 
+            python_callable=check_status,
+            provide_context=True,
+            dag=dag,
+            op_kwargs={'url':'https://github.com/status'},)
+
+        npr = PythonOperator(task_id='check_npr',
+            python_callable=check_status,
+            provide_context=True,
+            dag=dag,
+            op_kwargs={'url':'https://www.npr.org/status'},)
                     
             
         github >> npr
