@@ -1,5 +1,11 @@
     [
         {
+            "title": "adhoc: adds container name to docker-compose.yaml",
+            "repository": "PostHog/posthog",
+            "url": "https://github.com/PostHog/posthog/pull/232",
+            "language": "Python"
+        },
+        {
             "title": "useCrumbs -> use_crumbs",
             "repository": "pycontribs/jenkinsapi",
             "url": "https://github.com/pycontribs/jenkinsapi/pull/756",
