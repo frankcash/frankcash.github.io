@@ -1,5 +1,11 @@
     [
         {
+            "title": "Adds menu item for API Docs",
+            "repository": "MarquezProject/marquez-web",
+            "url": "https://github.com/MarquezProject/marquez-web/pull/93",
+            "language": "Javascripts"
+        },
+        {
             "title": "Updates openapi to show correct key",
             "repository": "MarquezProject/marquez",
             "url": "https://github.com/MarquezProject/marquez/pull/746",
