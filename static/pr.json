@@ -1,5 +1,11 @@
     [
         {
+            "title": "Updates openapi to show correct key",
+            "repository": "MarquezProject/marquez",
+            "url": "https://github.com/MarquezProject/marquez/pull/746",
+            "language": "Java"
+        },
+        {
             "title": "adhoc: adds container name to docker-compose.yaml",
             "repository": "PostHog/posthog",
             "url": "https://github.com/PostHog/posthog/pull/232",
