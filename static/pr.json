@@ -1,9 +1,21 @@
     [
         {
+            "title": "Searches for key in all upper case",
+            "repository": "MarquezProject/marquez-web",
+            "url": "https://github.com/MarquezProject/marquez-web/pull/99",
+            "language": "Javascript"
+        },
+        {
+            "title": "Passes in tags for a dataset from the homescreen",
+            "repository": "MarquezProject/marquez-web",
+            "url": "https://github.com/MarquezProject/marquez-web/pull/98",
+            "language": "Javascript"
+        },
+        {
             "title": "Adds menu item for API Docs",
             "repository": "MarquezProject/marquez-web",
             "url": "https://github.com/MarquezProject/marquez-web/pull/93",
-            "language": "Javascripts"
+            "language": "Javascript"
         },
         {
             "title": "Updates openapi to show correct key",
