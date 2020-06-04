@@ -22,6 +22,11 @@
 
 
     <div class="container">
+      <h2>Why use Git Commit Tagging for Docker Image Releases?</h2>
+
+      <p>In an opinionated manner it makes it very easy to reason about what is actually deployed.</p>
+      <p>It is nice to be able to go to Github or Gitlab and look for a specific commit instead of look for a specific tag.</p>
+      <p>Utilizing this Makefile releases can easily be automated through a CI/CD tool or done manually (for outages) and still follow a team norm.</p>
 
       <h2>Sample Dockerfile</h2>
 
@@ -35,6 +40,40 @@
       COPY Docker/wait-for-it.sh /usr/src/app/wait-for-it.sh
 
       EXPOSE 5000 5001
+
+      </code></pre>
+
+
+      <h2>Sample Makefile</h2>
+
+      <pre><code>
+        AWS_REPO	= {ACCOUNT_NUMBER}.dkr.ecr.us-east-1.amazonaws.com/marquez
+        REGION		= us-east-1
+        LOGIN		= aws ecr get-login --no-include-email --region $(REGION)
+        COMMIT		= $(shell git rev-parse HEAD)
+        
+        build:
+          docker build -t marquez:$(COMMIT) . --build-arg GIT_COMMIT=$(COMMIT)
+        
+        ecr_login:
+          $(shell $(LOGIN))
+        
+        push: ecr_login
+          docker push $(AWS_REPO):$(COMMIT)
+        
+        tag:
+          docker tag marquez:$(COMMIT) $(AWS_REPO):$(COMMIT)
+        
+        release: build \
+          ecr_login \
+          tag \
+          push
+        
+        help:
+          @grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+        
+        
+        .PHONY: build ecr_login push tag release help
 
       </code></pre>
 
