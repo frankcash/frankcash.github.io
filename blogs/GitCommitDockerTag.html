@@ -30,6 +30,7 @@
 
       <h2>Sample Dockerfile</h2>
 
+
       <pre><code>
       FROM marquezproject/marquez:0.10.4
 
@@ -43,6 +44,14 @@
 
       </code></pre>
 
+      <p>The only required lines from this Dockerfile are:</p>
+
+      <pre><code>
+  
+        ARG GIT_COMMIT=unspecified
+        LABEL git_commit="$GIT_COMMIT"
+  
+      </code></pre>
 
       <h2>Sample Makefile</h2>
       <p>Please note that this Makefile implies usage with <a href="https://aws.amazon.com/ecr/">Amazon ECR</a>.</p>
