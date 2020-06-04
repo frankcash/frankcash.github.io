@@ -86,6 +86,23 @@
         .PHONY: build ecr_login push tag release help
 
       </code></pre>
+
+      <p>Please note the only required lines to work with the Dockerfile is (but change `marquez` to your docker name):</p>
+      
+      <pre><code>
+        COMMIT		= $(shell git rev-parse HEAD)
+        
+        build:
+          docker build -t marquez:$(COMMIT) . --build-arg GIT_COMMIT=$(COMMIT)
+        
+        ecr_login:
+          $(shell $(LOGIN))
+        
+        tag:
+          docker tag marquez:$(COMMIT) $(AWS_REPO):$(COMMIT)
+
+      </code></pre>
+
   </div>
 
   </body>
