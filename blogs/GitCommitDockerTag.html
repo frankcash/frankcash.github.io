@@ -95,9 +95,6 @@
         build:
           docker build -t marquez:$(COMMIT) . --build-arg GIT_COMMIT=$(COMMIT)
         
-        ecr_login:
-          $(shell $(LOGIN))
-        
         tag:
           docker tag marquez:$(COMMIT) $(AWS_REPO):$(COMMIT)
 
