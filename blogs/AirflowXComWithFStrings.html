@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Using a Python f string with Airflow XCom.">
+    <meta name="title" content="Git Commits">
+    <meta name="keywords" content="Docker, Commit, Git, Tagging, Airflow, Apache, Data Science, Python, python, data, data engineering, engineering, AWS, s3, amazon">
+    <meta name="google" content="notranslate">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/print.css" media="print">
+
+    <title>Using a Python f String with Airflow XCom</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Using a Python f String with Airflow XCom</h1>
+      </div>
+    </header>
+
+
+    <div class="container">
+      <h2>Using a Python f String with Airflow XCom</h2>
+
+      <p>Please note the only required lines to work with the Dockerfile is (but change `marquez` to your docker name):</p>
+      
+      <pre><code>
+       bash_command=f'echo {{{{ ti.xcom_pull("Airflow_Status_Check_{state}") }}}}',
+      </code></pre>
+
+
+  </div>
+
+  </body>
+
+</html>
