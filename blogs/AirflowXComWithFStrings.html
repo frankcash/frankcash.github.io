@@ -24,7 +24,7 @@
     <div class="container">
       <h2>Using a Python f String with Airflow XCom</h2>
 
-      <p>Please note the only required lines to work with the Dockerfile is (but change `marquez` to your docker name):</p>
+      <p>Please note that using such logic can be beneficial, but make your DAGs hard to reason about:</p>
       
       <pre><code>
        bash_command=f'echo {{{{ ti.xcom_pull("Airflow_Status_Check_{state}") }}}}',
