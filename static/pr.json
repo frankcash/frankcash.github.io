@@ -1,5 +1,11 @@
     [
         {
+            "title": "adds fluentd plugin to export to cloudwatch logs #131",
+            "repository": "astronomer/ap-vendor",
+            "url": "https://github.com/astronomer/ap-vendor/pull/131",
+            "language": "Ruby"
+        },
+        {
             "title": "adds tag support to create_dataset",
             "repository": "MarquezProject/marquez-python",
             "url": "https://github.com/MarquezProject/marquez-python/pull/81",
