@@ -6,6 +6,12 @@
             "language": "Python"
         },
         {
+            "title": "Update example_fivetran_dbt.py",
+            "repository": "fivetran/airflow-provider-fivetran",
+            "url": "https://github.com/fivetran/airflow-provider-fivetran/pull/48",
+            "language": "Python"
+        },
+        {
             "title": "Adds example showing the ES_hook",
             "repository": "apache/airflow",
             "url": "https://github.com/apache/airflow/pull/17944",
