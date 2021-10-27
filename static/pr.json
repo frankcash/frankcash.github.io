@@ -1,5 +1,11 @@
     [
         {
+            "title": "assertRaisesRegexp => assertRaisesRegex",
+            "repository": "dbt-labs/dbt-core",
+            "url": "https://github.com/dbt-labs/dbt-core/pull/4136",
+            "language": "Python"
+        },
+        {
             "title": "Adds example showing the ES_hook",
             "repository": "apache/airflow",
             "url": "https://github.com/apache/airflow/pull/17944",
