@@ -1,5 +1,11 @@
     [
         {
+            "title": "eks_hook log level fatal -> FATAL",
+            "repository": "apache/airflow",
+            "url": "https://github.com/apache/airflow/pull/21427",
+            "language": "Python"
+        },
+        {
             "title": "assertRaisesRegexp => assertRaisesRegex",
             "repository": "dbt-labs/dbt-core",
             "url": "https://github.com/dbt-labs/dbt-core/pull/4136",
