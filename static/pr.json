@@ -1,5 +1,11 @@
     [
         {
+            "title": "[Feature] Updates FTPHook provider to have test_connection",
+            "repository": "apache/airflow",
+            "url": "https://github.com/apache/airflow/pull/21997",
+            "language": "Python"
+        },
+        {
             "title": "FIX: extends typing-extensions to be installed with python 3.8+",
             "repository": "apache/airflow",
             "url": "https://github.com/apache/airflow/pull/21567",
