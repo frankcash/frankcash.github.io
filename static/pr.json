@@ -1,5 +1,10 @@
     [
         {
+            "title": "Adds .airflowignore",
+            "repository": "astronomer/astro-cli",
+            "url": "https://github.com/astronomer/astro-cli/pull/980",
+            "language": "golang"
+        },        {
             "title": "[Feature] Updates FTPHook provider to have test_connection",
             "repository": "apache/airflow",
             "url": "https://github.com/apache/airflow/pull/21997",
