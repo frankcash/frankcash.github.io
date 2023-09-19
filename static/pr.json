@@ -1,5 +1,11 @@
     [
         {
+            "title": "Use AirflowProviderDeprecrationWarning in EMR Operators",
+            "repository": "apache/airflow",
+            "url": "https://github.com/apache/airflow/pull/34453",
+            "language": "Python"
+        },
+        {
             "title": "Adds .airflowignore",
             "repository": "astronomer/astro-cli",
             "url": "https://github.com/astronomer/astro-cli/pull/980",
